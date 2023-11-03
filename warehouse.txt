@@ -12,7 +12,7 @@ Milk: 100
 Fruits: 50
 Soaps: 50
 Toothpaste: 50
-Facewash: 50
+Facewash: 500
 Sneaker: 50
-Sport: 200
+Sport: 500
 Sandal: 50
