@@ -5,11 +5,15 @@
 void warehouse();
 void display();
 int delivery(int *);
+void signup();
+int signin();
 
 struct program
 {
-    int total;
+    float total;
     int delivery_time;
+    char username[25];
+    char password[15];
     union products
     {
         struct handloom
@@ -122,21 +126,21 @@ struct program
             {
                 struct soaps
                 {
-                    float price[3];
-                    char fragrance[100];
+                    float price;
+                    char fragrance[50];
                     int quantity;
                 } soaps;
                 
                 struct toothpaste
                 {
-                    float price[3];
-                    char type[100];
+                    float price;
+                    char type[50];
                     int quantity;
                 } toothpaste;
                 struct face_wash
                 {
-                    float price[3];
-                    char properties[100];
+                    float price;
+                    char properties[50];
                     int quantity;
                 } face_wash;
             } clean;
@@ -173,26 +177,49 @@ struct program
 
 int main()
 {
-    int main_choice, choice, sub_choice, index = 0, total[50], cart = 0, shop = 2, discount, time[50], var;
-    char username[25], password[50], brand[50][25], address[100], mobile[15];
+    int main_choice, choice, sub_choice, index = 0, shop = 2, time[50], cart = 0, total[50], var, user, login;
+    char brand[50][25], address[100], mobile[15];
     time[0] = -1;
+
+    printf("Enter 1 for Login\n");
+    printf("Enter 2 for New User\n");
     fflush(stdin);
-    printf("Please enter your details:\nUsername: ");
+    printf("Enter: ");
     fflush(stdin);
-    gets(username);
+    scanf("%d", &user);
+    fflush(stdin);
+    user:
+    printf("Please enter your details\nUsername: ");
+    fflush(stdin);
+    gets(program.username);
     fflush(stdin);
     printf("Password: ");
     fflush(stdin);
-    gets(password);
+    gets(program.password);
     fflush(stdin);
+    if(user == 1 && signin() == 0)
+    {
+        printf("Wrong login credantials\n");
+        goto user;
+    }
+    else if(user == 2 && signin() == 1)
+    {
+        printf("Username already exists\n");
+        goto user;
+    }
+    else if(user == 2 && signin() == 0)
+    {
+        signup();
+        printf("User successfully added\n");
+    }
 
-    if(!strcmp(username, "manager") && !strcmp(password, "hahaha"))
+    if(!strcmp(program.username, "manager") && !strcmp(program.password, "hahaha"))
     {
         warehouse();
         exit(0);
     }
     
-    else if(!strcmp(username, "employee") && !strcmp(password, "hihihi"))
+    else if(!strcmp(program.username, "employee") && !strcmp(program.password, "hihihi"))
     {
         display();
         exit(0);
@@ -407,7 +434,7 @@ int main()
                 fflush(stdin);
                 scanf("%d", &program.products.groceries.eatery.flour.weight);
                 fflush(stdin);
-                printf("Enter the type of flour (Whole wheat or Multigrain or Both)");
+                printf("Enter the type of flour (Whole wheat or Multigrain or Both): ");
                 fflush(stdin);
                 gets(program.products.groceries.eatery.flour.type_flour);
                 fflush(stdin);
@@ -484,7 +511,7 @@ int main()
                 scanf("%d", &sub_choice);
                 fflush(stdin);
                 printf("Enter the color you want: ");
-                fflush(stdin);
+                while((var = getchar()) != '\n' && var != EOF);
                 gets(program.products.electric.appliance.headphones.color);
                 fflush(stdin);
                 if(sub_choice == 1)
@@ -519,8 +546,8 @@ int main()
                 scanf("%d", &program.products.electric.appliance.charger.power);
                 fflush(stdin);
                 printf("Enter the type of cable you want: ");
-                fflush(stdin);
-                gets(program.products.electric.appliance.charger.cable_type);
+                while((var = getchar()) != '\n' && var != EOF);
+                fgets(program.products.electric.appliance.charger.cable_type, sizeof(program.products.electric.appliance.charger.cable_type), stdin);
                 fflush(stdin);
                 if(sub_choice == 1)
                 {
@@ -556,17 +583,17 @@ int main()
                 if(sub_choice == 1)
                 {
                     strcpy(brand[index], "Mi");
-                    program.products.electric.appliance.power_bank.price = 1;
+                    program.products.electric.appliance.power_bank.price = 2200;
                 }
                 else if(sub_choice == 2)
                 {
                     strcpy(brand[index], "Ambrane");
-                    program.products.electric.appliance.power_bank.price = 2;
+                    program.products.electric.appliance.power_bank.price = 1600;
                 }
                 else
                 {
                     strcpy(brand[index], "Amazon Basics");
-                    program.products.electric.appliance.power_bank.price = 2;
+                    program.products.electric.appliance.power_bank.price = 2000;
                 }
                 program.total = program.products.electric.appliance.power_bank.price;
                 break;
@@ -686,9 +713,9 @@ int main()
             printf("Enter 2 to buy Pillow\n");
             printf("Enter 3 to buy Bedsheet\n");
             printf("Enter: ");
-            while((var = getchar()) != '\n' && var != EOF);
-            scanf("%d", choice);
-            while((var = getchar()) != '\n' && var != EOF);
+            fflush(stdin);
+            scanf("%d", &choice);
+            fflush(stdin);
             switch(choice)
             {
                 case 1:
@@ -701,7 +728,7 @@ int main()
                 fflush(stdin);
                 printf("Enter the size (Queen size or Single bed or King size): ");
                 fflush(stdin);
-                fgets(program.products.handloom.bedroom.mattress.size, sizeof(program.products.handloom.bedroom.mattress.size), stdin);
+                gets(program.products.handloom.bedroom.mattress.size);
                 fflush(stdin);
                 if(sub_choice == 1)
                 {
@@ -794,7 +821,123 @@ int main()
             break;
 
             case 6:
-            
+            program.delivery_time = 3;
+            printf("Enter 1 to buy Soaps\n");
+            printf("Enter 2 to buy Toothpaste\n");
+            printf("Enter 3 to buy Face Wash\n");
+            fflush(stdin);
+            printf("Enter: ");
+            fflush(stdin);
+            scanf("%d", &choice);
+            fflush(stdin);
+            switch(choice)
+            {
+                case 1:
+                printf("Enter 1 to buy Park Avenue: 53rs\n");
+                printf("Enter 2 to buy Dettol: 35rs\n");
+                printf("Enter 3 to buy Godrej: 33rs\n");
+                fflush(stdin);
+                printf("Enter: ");
+                fflush(stdin);
+                scanf("%d", &sub_choice);
+                fflush(stdin);
+                printf("Enter the number of soaps you want: ");
+                fflush(stdin);
+                scanf("%d", &program.products.toilet.clean.soaps.quantity);
+                fflush(stdin);
+                printf("Enter the fragrance (Lavender or Sandalwood or Fresh lime or Sea breeze): ");
+                fflush(stdin);
+                gets(program.products.toilet.clean.soaps.fragrance);
+                fflush(stdin);
+                if(sub_choice == 1)
+                {
+                    strcpy(brand[index], "Park Avenue");
+                    program.products.toilet.clean.soaps.price = 53;
+                }
+                else if(sub_choice == 2)
+                {
+                    strcpy(brand[index], "Dettol");
+                    program.products.toilet.clean.soaps.price = 35;
+                }
+                else
+                {
+                    strcpy(brand[index], "Godrej");
+                    program.products.toilet.clean.soaps.price = 33;
+                }
+                program.total = program.products.toilet.clean.soaps.price * program.products.toilet.clean.soaps.quantity;
+                break;
+
+                case 2:
+                printf("Enter 1 to buy Colgate: 92rs\n");
+                printf("Enter 2 to buy Pepsodent: 103rs\n");
+                printf("Enter 3 to buy Sensodyne: 140rs\n");
+                fflush(stdin);
+                printf("Enter: ");
+                fflush(stdin);
+                scanf("%d", &sub_choice);
+                fflush(stdin);
+                printf("Enter the number of toothpastes you want: ");
+                fflush(stdin);
+                scanf("%d", &program.products.toilet.clean.toothpaste.quantity);
+                fflush(stdin);
+                printf("Enter the properties (Sensitivity removal or Added salts or Fluoride free): ");
+                fflush(stdin);
+                gets(program.products.toilet.clean.toothpaste.type);
+                fflush(stdin);
+                if(sub_choice == 1)
+                {
+                    strcpy(brand[index], "Colgate");
+                    program.products.toilet.clean.toothpaste.price = 92;
+                }
+                else if(sub_choice == 2)
+                {
+                    strcpy(brand[index], "Pepsodent");
+                    program.products.toilet.clean.toothpaste.price = 103;
+                }
+                else
+                {
+                    strcpy(brand[index], "Sensodyne");
+                    program.products.toilet.clean.toothpaste.price = 140;
+                }
+                program.total = program.products.toilet.clean.toothpaste.price * program.products.toilet.clean.toothpaste.quantity;
+                break;
+
+                case 3:
+                printf("Enter 1 to buy Nivea: 249rs\n");
+                printf("Enter 2 to buy Wow: 399rs\n");
+                printf("Enter 3 to buy Biotique: 205rs\n");
+                fflush(stdin);
+                printf("Enter: ");
+                fflush(stdin);
+                scanf("%d", &sub_choice);
+                fflush(stdin);
+                printf("Enter the number of face wash you want: ");
+                fflush(stdin);
+                scanf("%d", &program.products.toilet.clean.face_wash.quantity);
+                fflush(stdin);
+                printf("Enter the properties (Oil control or Dry skin or Acne removal): ");
+                fflush(stdin);
+                gets(program.products.toilet.clean.face_wash.properties);
+                fflush(stdin);
+                if(sub_choice == 1)
+                {
+                    strcpy(brand[index], "Nivea");
+                    program.products.toilet.clean.face_wash.price = 249;
+                }
+                else if(sub_choice == 2)
+                {
+                    strcpy(brand[index], "Wow");
+                    program.products.toilet.clean.face_wash.price = 399;
+                }
+                else
+                {
+                    strcpy(brand[index], "Biotique");
+                    program.products.toilet.clean.face_wash.price = 205;
+                }
+                program.total = program.products.toilet.clean.face_wash.price * program.products.toilet.clean.face_wash.quantity;
+                break;
+            }
+            break;
         }
         printf("Item successfully added to cart!\n");
         total[index] = program.total;
@@ -813,19 +956,24 @@ int main()
             printf("Enter 1 to checkout\n");
             printf("Enter 2 to continue shopping\n");
             printf("Enter 3 to save the cart for later\n");
+            fflush(stdin);
             printf("Enter: ");
+            fflush(stdin);
             scanf("%d", &shop);
+            fflush(stdin);
             if(shop == 1)
             {
                 checkout:
+                fflush(stdin);
                 printf("Please enter additional details:\nAddress: ");
                 fflush(stdin);
                 gets(address);
+                fflush(stdin);
                 printf("Mobile Number: ");
+                fflush(stdin);
                 gets(mobile);
-                discount = rand() % 10 + 1;
-                printf("Amount Payable: %d", cart * discount / 100);
-                printf("The least possible time to deliver is: %d", delivery(time));
+                fflush(stdin);
+                printf("The least possible time to deliver is: %d day\n", delivery(time));
             }
         }
     } while(shop == 2);
@@ -888,4 +1036,38 @@ int delivery(int *array)
             max = *(array + i);
     }
     return max;
+}
+
+void signup()
+{
+    char entry[50];
+    strcpy(entry, program.username);
+    strcat(entry, ": ");
+    strcat(entry, program.password);
+    FILE *file = fopen("C:\\Users\\karti\\OneDrive\\Documents\\GitHub\\Projects\\user.txt", "a");
+    if(file == NULL)
+        printf("File Not Found\n");
+    fprintf(file, "%s\n", entry);
+    fclose(file);
+}
+
+int signin()
+{
+    char entry[50];
+    int r = 0;
+    FILE *file = fopen("C:\\Users\\karti\\OneDrive\\Documents\\GitHub\\Projects\\user.txt", "r");
+    if(file == NULL)
+        printf("File Not Found");
+    else
+    {
+        while(fgets(entry, sizeof(entry), file))
+        {
+            if(strstr(entry, program.username) && strstr(entry, program.password))
+                r = 1;
+            else 
+                r = 0;
+        }
+    }
+    fclose(file);
+    return r;
 }
