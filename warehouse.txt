@@ -5,13 +5,13 @@ Headphones: 50
 Charger: 50
 Power Bank: 50
 Chocolate: 50
-Chips: 50
+Chips: 100
 Biscuits: 50
 Flour: 50
 Milk: 50
 Fruits: 50
 Soaps: 50
-Toothpaste: 100
+Toothpaste: 50
 Facewash: 50
 Sneaker: 50
 Sport: 50

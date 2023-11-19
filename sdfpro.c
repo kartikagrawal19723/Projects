@@ -2,15 +2,25 @@
 #include<string.h>
 #include<stdlib.h>
 
+//warehouse() allows the manager to update the number of items
 void warehouse();
+
+//display() shows the manager and the employee, the list of available items
 void display();
+
+//delivery(int *) calculates time taken to deliver all the items to the user
 int delivery(int *);
+
+//signup() add a new user to create his / her id
 void signup();
+
+//signin() helps a existing user to login and buy
 int signin();
 
+//program -> products -> handloom / electric / snacks / groceries / toilet / shoe
 struct program
 {
-    float total;
+    int total;
     int delivery_time;
     char username[25];
     char password[15];
@@ -25,14 +35,14 @@ struct program
                     float price;
                     char size[10];
                 } mattress;
-                
+
                 struct pillow
                 {
                     char size[10];
                     float price;
                     char material[25];
                 } pillow;
-                
+
                 struct bedsheet
                 {
                     char size[10];
@@ -51,14 +61,14 @@ struct program
                     float price;
                     char color;
                 } headphones;
-                
+
                 struct charger
                 {
                     float price;
                     int power;
                     char cable_type;
                 } charger;
-                
+
                 struct power_bank
                 {
                     float price;
@@ -77,14 +87,14 @@ struct program
                     char type;
                     int quantity;
                 } chocolate;
-                
+
                 struct chips
                 {
                     float price;
                     char flavour;
                     int quantity;
                 } chips;
-                
+
                 struct biscuits
                 {
                     float price;
@@ -104,14 +114,14 @@ struct program
                     int weight;
                     char type_flour[25];
                 } flour;
-                
+
                 struct milk
                 {
                     float price;
                     char type_milk[25];
                     int quantity;
                 } milk;
-                
+
                 struct fruits
                 {
                     float price;
@@ -121,7 +131,7 @@ struct program
         } groceries;
 
         struct toilet
-        { 
+        {
             union clean
             {
                 struct soaps
@@ -130,7 +140,7 @@ struct program
                     char fragrance[50];
                     int quantity;
                 } soaps;
-                
+
                 struct toothpaste
                 {
                     float price;
@@ -156,14 +166,14 @@ struct program
                     int price;
                     char color[25];
                 } sneaker;
-                
+
                 struct sport
                 {
                     float size;
                     int price;
                     char color[25];
                 } sport;
-                
+
                 struct sandal
                 {
                     float size;
@@ -177,7 +187,8 @@ struct program
 
 int main()
 {
-    int main_choice, choice, sub_choice, index = 0, shop = 2, time[50], cart = 0, total[50], var, user, login;
+    //Variable declaration and initialization
+    int main_choice, choice, sub_choice, index = 0, shop = 2, time[50], cart = 0, total[51], var, user;
     char brand[50][25], address[100], mobile[15];
     time[0] = -1;
 
@@ -188,6 +199,8 @@ int main()
     fflush(stdin);
     scanf("%d", &user);
     fflush(stdin);
+
+    //label makes sure that we reenter if the info provided is wrong
     user:
     printf("Please enter your details\nUsername: ");
     fflush(stdin);
@@ -197,43 +210,49 @@ int main()
     fflush(stdin);
     gets(program.password);
     fflush(stdin);
+
     if(user == 1 && signin() == 0)
     {
         printf("Wrong login credantials\n");
         goto user;
     }
+
     else if(user == 2 && signin() == 1)
     {
         printf("Username already exists\n");
         goto user;
     }
+
     else if(user == 2 && signin() == 0)
     {
         signup();
         printf("User successfully added\n");
     }
 
+    //Special user access to manager and employee
     if(!strcmp(program.username, "manager") && !strcmp(program.password, "hahaha"))
     {
         warehouse();
         exit(0);
     }
-    
+
     else if(!strcmp(program.username, "employee") && !strcmp(program.password, "hihihi"))
     {
         display();
         exit(0);
     }
-   
+
+    printf("Welcome %s\n", program.username);
     printf("\nItems available today are:\nSnacks: Chips, Biscuits and Chocolates\n");
     printf("Groceries: Milk, Flour and Fruits\n");
     printf("Electronics: Headphones, Chargers and Power Banks\n");
     printf("Footwear: Sport shoes, Sneakers and Sandals\n");
     printf("Handloom: Bedsheets, Pillows and Matteresses\n");
     printf("Toiletries: Soaps, Face wash and Tooth Paste\n");
-    
+
     do
     {
+        //To check that user does not buy too many items at once
         if(index == 50)
         {
             printf("Cart limit reached!\n");
@@ -252,7 +271,8 @@ int main()
             else
                 exit(0);
         }
-        
+
+        option:
         printf("Enter 1 to buy Snacks\n");
         printf("Enter 2 to buy Groceries\n");
         printf("Enter 3 to buy Electronics\n");
@@ -264,7 +284,7 @@ int main()
         fflush(stdin);
         scanf("%d", &main_choice);
         fflush(stdin);
-        
+
         switch(main_choice)
         {
             case 1:
@@ -292,6 +312,10 @@ int main()
                 fflush(stdin);
                 scanf("%d", &program.products.snacks.consumables.chips.quantity);
                 fflush(stdin);
+                printf("Enter the flavours you want: ");
+                fflush(stdin);
+                fgets(program.products.snacks.consumables.chips.flavour, sizeof(program.products.snacks.consumables.chips.flavour), stdin);
+                fflush(stdin);
                 if(sub_choice == 1)
                 {
                     strcpy(brand[index], "Lays");
@@ -309,7 +333,7 @@ int main()
                 }
                 program.total = program.products.snacks.consumables.chips.price * program.products.snacks.consumables.chips.quantity;
                 break;
-                
+
                 case 2:
                 printf("Enter 1 to buy Oreo: 35rs\n");
                 printf("Enter 2 to buy Dark Fantasy: 80rs\n");
@@ -322,6 +346,10 @@ int main()
                 printf("Enter the number of biscuits you want: ");
                 fflush(stdin);
                 scanf("%d", &program.products.snacks.consumables.biscuits.quantity);
+                fflush(stdin);
+                printf("Enter the flavour you want: ");
+                fflush(stdin);
+                fgets(program.products.snacks.consumables.biscuits.flavour, sizeof(program.products.snacks.consumables.biscuits.flavour), stdin);
                 fflush(stdin);
                 if(sub_choice == 1)
                 {
@@ -340,7 +368,7 @@ int main()
                 }
                 program.total = program.products.snacks.consumables.biscuits.price * program.products.snacks.consumables.biscuits.quantity;
                 break;
-                
+
                 case 3:
                 printf("Enter 1 to buy Dairy Milk: 50rs\n");
                 printf("Enter 2 to buy Snickers: 50rs\n");
@@ -353,6 +381,10 @@ int main()
                 printf("Enter the number of chocolates you want: ");
                 fflush(stdin);
                 scanf("%d", &program.products.snacks.consumables.chocolate.quantity);
+                fflush(stdin);
+                printf("Enter the type of chocolate you want: ");
+                fflush(stdin);
+                fgets(program.products.snacks.consumables.chocolate.type, sizeof(program.products.snacks.consumables.chocolate.type), stdin);
                 fflush(stdin);
                 if(sub_choice == 1)
                 {
@@ -371,9 +403,14 @@ int main()
                 }
                 program.total = program.products.snacks.consumables.chocolate.price * program.products.snacks.consumables.chocolate.quantity;
                 break;
+
+                default:
+                printf("Wrong Input\n");
+                goto option;
+                break;
             }
             break;
-            
+
             case 2:
             program.delivery_time = 1;
             printf("Enter 1 to buy Milk\n");
@@ -420,7 +457,7 @@ int main()
                 }
                 program.total = program.products.groceries.eatery.milk.price * program.products.groceries.eatery.milk.quantity;
                 break;
-                
+
                 case 2:
                 printf("Enter 1 to buy Fortune: 46rs per kg\n");
                 printf("Enter 2 to buy Aashirvaad: 45rs per kg\n");
@@ -485,6 +522,11 @@ int main()
                     program.products.groceries.eatery.fruits.price = 324;
                 }
                 program.total = program.products.groceries.eatery.fruits.price * program.products.groceries.eatery.fruits.weight;
+                break;
+
+                default:
+                printf("Wrong Input\n");
+                goto option;
                 break;
             }
             break;
@@ -597,6 +639,11 @@ int main()
                 }
                 program.total = program.products.electric.appliance.power_bank.price;
                 break;
+
+                default:
+                printf("Wrong Input\n");
+                goto option;
+                break;
             }
             break;
 
@@ -704,6 +751,11 @@ int main()
                 }
                 program.total = program.products.shoe.feet.sandal.price;
                 break;
+
+                default:
+                printf("Wrong Input\n");
+                goto option;
+                break;
             }
             break;
 
@@ -777,7 +829,7 @@ int main()
                 }
                 else
                 {
-                    strcpy(brand[index], "Sleepyhead");
+                    strcpy(brand[index], "Wakefit");
                     program.products.handloom.bedroom.pillow.price = 1141;
                 }
                 program.total = program.products.handloom.bedroom.pillow.price;
@@ -816,6 +868,11 @@ int main()
                     program.products.handloom.bedroom.bedsheet.price = 1295;
                 }
                 program.total = program.products.handloom.bedroom.bedsheet.price;
+                break;
+
+                default:
+                printf("Wrong Input\n");
+                goto option;
                 break;
             }
             break;
@@ -936,9 +993,15 @@ int main()
                 }
                 program.total = program.products.toilet.clean.face_wash.price * program.products.toilet.clean.face_wash.quantity;
                 break;
+
+                default:
+                printf("Wrong Input\n");
+                goto option;
+                break;
             }
             break;
         }
+
         printf("Item successfully added to cart!\n");
         total[index] = program.total;
         time[index] = program.delivery_time;
@@ -955,7 +1018,6 @@ int main()
             printf("Total value of cart: %d\n", cart);
             printf("Enter 1 to checkout\n");
             printf("Enter 2 to continue shopping\n");
-            printf("Enter 3 to save the cart for later\n");
             fflush(stdin);
             printf("Enter: ");
             fflush(stdin);
@@ -973,21 +1035,23 @@ int main()
                 fflush(stdin);
                 gets(mobile);
                 fflush(stdin);
-                printf("The least possible time to deliver is: %d day\n", delivery(time));
+                printf("Items will be delivered within %d days\n", delivery(time));
             }
         }
     } while(shop == 2);
+    printf("Thank You %s\n", program.username);
 }
 
 void warehouse()
 {
+    printf("Hello Sir/Madam\n");
     display();
     char data[50];
     FILE *file = fopen("C:\\Users\\karti\\OneDrive\\Documents\\GitHub\\Projects\\warehouse.txt", "r");
     FILE *temp = fopen("C:\\Users\\karti\\OneDrive\\Documents\\GitHub\\Projects\\temp.txt", "w");
     char item[25], quantity[5], new_entry[50];
     fflush(stdin);
-    printf("\nHello Sir/Madam\nPlease enter the name of the item bought: ");
+    printf("\nPlease enter the name of the item bought: ");
     fflush(stdin);
     gets(item);
     fflush(stdin);
@@ -1016,7 +1080,7 @@ void display()
 {
     char data[50];
     FILE *file = fopen("C:\\Users\\karti\\OneDrive\\Documents\\GitHub\\Projects\\warehouse.txt", "r");
-    printf("Hello Sir/Madam\nThe quantity of each item in warehouse is:\n");
+    printf("The quantity of each item in warehouse is:\n");
     if(file == NULL)
         printf("File not found");
     else
@@ -1063,8 +1127,11 @@ int signin()
         while(fgets(entry, sizeof(entry), file))
         {
             if(strstr(entry, program.username) && strstr(entry, program.password))
+            {
                 r = 1;
-            else 
+                break;
+            }
+            else
                 r = 0;
         }
     }
