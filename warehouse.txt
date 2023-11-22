@@ -13,6 +13,6 @@ Fruits: 50
 Soaps: 50
 Toothpaste: 50
 Facewash: 50
-Sneaker: 50
-Sport: 50
+Sneaker: 100
+Sport: 100
 Sandal: 50

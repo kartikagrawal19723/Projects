@@ -188,11 +188,11 @@ struct program
 int main()
 {
     //Variable declaration and initialization
-    int main_choice, choice, sub_choice, index = 0, shop = 2, time[50], cart = 0, total[51], var, user;
+    int main_choice, choice, sub_choice, index = 0, shop = 2, time[51], cart = 0, total[50], var, user;
     char brand[50][25], address[100], mobile[15];
     time[0] = -1;
 
-    printf("\t\t\t\t\t\tWelcome to Cyber Mall\n\n");
+    printf("\t\t\t\t\t\t\tWelcome to Cyber Mall\n\n");
     printf("Enter 1 for Login\n");
     printf("Enter 2 for New User\n");
     fflush(stdin);
@@ -203,7 +203,7 @@ int main()
 
     //label makes sure that we reenter if the info provided is wrong
     user:
-    printf("Please enter your details\nUsername: ");
+    printf("\nPlease enter your details\nUsername: ");
     fflush(stdin);
     scanf("%s", program.username);
     fflush(stdin);
@@ -215,14 +215,14 @@ int main()
     //User is trying to login but username or password was wrong
     if(user == 1 && signin() == 0)
     {
-        printf("Wrong login credantials\n");
+        printf("\nWrong login credantials\n");
         goto user;
     }
 
     //User is trying to create an account but username already exists
     else if(user == 2 && signin() == 1)
     {
-        printf("Username already exists\n");
+        printf("\nUsername already exists\n");
         goto user;
     }
 
@@ -230,7 +230,7 @@ int main()
     else if(user == 2 && signin() == 0)
     {
         signup();
-        printf("User successfully added\n");
+        printf("\nUser successfully added\n");
     }
 
     //Special user access to manager and employee
@@ -246,7 +246,7 @@ int main()
         exit(0);
     }
 
-    printf("Welcome %s\n", program.username);
+    printf("\n\t\t\t\t\t\t\t   Welcome %s\n", program.username);
     printf("\nItems available today are:\nSnacks: Chips, Biscuits and Chocolates\n");
     printf("Groceries: Milk, Flour and Fruits\n");
     printf("Electronics: Headphones, Chargers and Power Banks\n");
@@ -259,11 +259,11 @@ int main()
         //To check that user does not buy too many items at once
         if(index == 50)
         {
-            printf("Cart limit reached!\n");
+            printf("\nCart limit reached!\n\n");
             for(int i = 0; i < index; i++)
                 printf("%s: %d\n", brand[i], total[i]);
 
-            printf("Total value of cart: %d\n", cart);
+            printf("\nTotal value of cart: %d\n", cart);
             printf("Enter 1 to checkout\n");
             printf("Enter 2 to exit\n");
             fflush(stdin);
@@ -278,7 +278,7 @@ int main()
         }
 
         option:
-        printf("Enter 1 to buy Snacks\n");
+        printf("\nEnter 1 to buy Snacks\n");
         printf("Enter 2 to buy Groceries\n");
         printf("Enter 3 to buy Electronics\n");
         printf("Enter 4 to buy Footwear\n");
@@ -294,7 +294,7 @@ int main()
         {
             case 1:
             program.delivery_time = 1;
-            printf("Enter 1 to buy Chips\n");
+            printf("\nEnter 1 to buy Chips\n");
             printf("Enter 2 to buy Biscuits\n");
             printf("Enter 3 to buy Chocolates\n");
             fflush(stdin);
@@ -305,7 +305,7 @@ int main()
             switch(choice)
             {
                 case 1:
-                printf("Enter 1 to buy Lays: 20rs\n");
+                printf("\nEnter 1 to buy Lays: 20rs\n");
                 printf("Enter 2 to buy Doritos: 50rs\n");
                 printf("Enter 3 to buy Bingo: 20rs\n");
                 fflush(stdin);
@@ -313,7 +313,7 @@ int main()
                 fflush(stdin);
                 scanf("%d", &sub_choice);
                 fflush(stdin);
-                printf("Enter the number of chips you want: ");
+                printf("\nEnter the number of chips you want: ");
                 fflush(stdin);
                 scanf("%d", &program.products.snacks.consumables.chips.quantity);
                 fflush(stdin);
@@ -340,7 +340,7 @@ int main()
                 break;
 
                 case 2:
-                printf("Enter 1 to buy Oreo: 35rs\n");
+                printf("\nEnter 1 to buy Oreo: 35rs\n");
                 printf("Enter 2 to buy Dark Fantasy: 80rs\n");
                 printf("Enter 3 to buy Parle-G: 25rs\n");
                 fflush(stdin);
@@ -348,7 +348,7 @@ int main()
                 fflush(stdin);
                 scanf("%d", &sub_choice);
                 fflush(stdin);
-                printf("Enter the number of biscuits you want: ");
+                printf("\nEnter the number of biscuits you want: ");
                 fflush(stdin);
                 scanf("%d", &program.products.snacks.consumables.biscuits.quantity);
                 fflush(stdin);
@@ -375,7 +375,7 @@ int main()
                 break;
 
                 case 3:
-                printf("Enter 1 to buy Dairy Milk: 50rs\n");
+                printf("\nEnter 1 to buy Dairy Milk: 50rs\n");
                 printf("Enter 2 to buy Snickers: 50rs\n");
                 printf("Enter 3 to buy 5-Star: 20rs\n");
                 fflush(stdin);
@@ -383,7 +383,7 @@ int main()
                 fflush(stdin);
                 scanf("%d", &sub_choice);
                 fflush(stdin);
-                printf("Enter the number of chocolates you want: ");
+                printf("\nEnter the number of chocolates you want: ");
                 fflush(stdin);
                 scanf("%d", &program.products.snacks.consumables.chocolate.quantity);
                 fflush(stdin);
@@ -418,7 +418,7 @@ int main()
 
             case 2:
             program.delivery_time = 1;
-            printf("Enter 1 to buy Milk\n");
+            printf("\nEnter 1 to buy Milk\n");
             printf("Enter 2 to buy Flour\n");
             printf("Enter 3 to buy Fruits\n");
             fflush(stdin);
@@ -429,7 +429,7 @@ int main()
             switch(choice)
             {
                 case 1:
-                printf("Enter 1 to buy Mother Dairy: 32rs\n");
+                printf("\nEnter 1 to buy Mother Dairy: 32rs\n");
                 printf("Enter 2 to buy Amul: 78rs\n");
                 printf("Enter 3 to buy Humpy: 49rs\n");
                 fflush(stdin);
@@ -437,7 +437,7 @@ int main()
                 fflush(stdin);
                 scanf("%d", &sub_choice);
                 fflush(stdin);
-                printf("Enter the number of packets you want: ");
+                printf("\nEnter the number of packets you want: ");
                 fflush(stdin);
                 scanf("%d", &program.products.groceries.eatery.milk.quantity);
                 fflush(stdin);
@@ -464,7 +464,7 @@ int main()
                 break;
 
                 case 2:
-                printf("Enter 1 to buy Fortune: 46rs per kg\n");
+                printf("\nEnter 1 to buy Fortune: 46rs per kg\n");
                 printf("Enter 2 to buy Aashirvaad: 45rs per kg\n");
                 printf("Enter 3 to buy Patanjali: 44rs per kg\n");
                 fflush(stdin);
@@ -472,7 +472,7 @@ int main()
                 fflush(stdin);
                 scanf("%d", &sub_choice);
                 fflush(stdin);
-                printf("Enter the weight of flour you want: ");
+                printf("\nEnter the weight of flour you want: ");
                 fflush(stdin);
                 scanf("%d", &program.products.groceries.eatery.flour.weight);
                 fflush(stdin);
@@ -499,7 +499,7 @@ int main()
                 break;
 
                 case 3:
-                printf("Enter 1 to buy Apple: 172rs per kg\n");
+                printf("\nEnter 1 to buy Apple: 172rs per kg\n");
                 printf("Enter 2 to buy Guava: 118rs per kg\n");
                 printf("Enter 3 to buy Pear: 324rs per kg\n");
                 fflush(stdin);
@@ -507,7 +507,7 @@ int main()
                 fflush(stdin);
                 scanf("%d", &sub_choice);
                 fflush(stdin);
-                printf("Enter the weight of fruits you want: ");
+                printf("\nEnter the weight of fruits you want: ");
                 fflush(stdin);
                 scanf("%d", &program.products.groceries.eatery.flour.weight);
                 fflush(stdin);
@@ -530,7 +530,7 @@ int main()
                 break;
 
                 default:
-                printf("Wrong Input\n");
+                printf("\nWrong Input\n");
                 goto option;
                 break;
             }
@@ -538,7 +538,7 @@ int main()
 
             case 3:
             program.delivery_time = 3;
-            printf("Enter 1 to buy Headphones\n");
+            printf("\nEnter 1 to buy Headphones\n");
             printf("Enter 2 to buy Charger\n");
             printf("Enter 3 to buy Power Banks\n");
             fflush(stdin);
@@ -549,7 +549,7 @@ int main()
             switch(choice)
             {
                 case 1:
-                printf("Enter 1 to buy Boat: 1700rs\n");
+                printf("\nEnter 1 to buy Boat: 1700rs\n");
                 printf("Enter 2 to buy Noise: 2000rs\n");
                 printf("Enter 3 to buy JBL: 2900rs\n");
                 fflush(stdin);
@@ -557,7 +557,7 @@ int main()
                 fflush(stdin);
                 scanf("%d", &sub_choice);
                 fflush(stdin);
-                printf("Enter the color you want: ");
+                printf("\nEnter the color you want: ");
                 fflush(stdin);
                 scanf("%[^\n]s", program.products.electric.appliance.headphones.color);
                 fflush(stdin);
@@ -580,7 +580,7 @@ int main()
                 break;
 
                 case 2:
-                printf("Enter 1 to buy Samsung: 1700rs\n");
+                printf("\nEnter 1 to buy Samsung: 1700rs\n");
                 printf("Enter 2 to buy Mi: 1000rs\n");
                 printf("Enter 3 to buy One-Plus: 3000rs\n");
                 fflush(stdin);
@@ -588,7 +588,7 @@ int main()
                 fflush(stdin);
                 scanf("%d", &sub_choice);
                 fflush(stdin);
-                printf("Enter the power of charger you want: ");
+                printf("\nEnter the power of charger you want: ");
                 fflush(stdin);
                 scanf("%d", &program.products.electric.appliance.charger.power);
                 fflush(stdin);
@@ -615,7 +615,7 @@ int main()
                 break;
 
                 case 3:
-                printf("Enter 1 to buy Mi: 2200rs\n");
+                printf("\nEnter 1 to buy Mi: 2200rs\n");
                 printf("Enter 2 to buy Ambrane: 1600rs\n");
                 printf("Enter 3 to buy Amazon Basics: 2000rs\n");
                 fflush(stdin);
@@ -623,7 +623,7 @@ int main()
                 fflush(stdin);
                 scanf("%d", &sub_choice);
                 fflush(stdin);
-                printf("Enter the capacity you want: ");
+                printf("\nEnter the capacity you want: ");
                 fflush(stdin);
                 scanf("%d", &program.products.electric.appliance.power_bank.capacity);
                 fflush(stdin);
@@ -646,7 +646,7 @@ int main()
                 break;
 
                 default:
-                printf("Wrong Input\n");
+                printf("\nWrong Input\n");
                 goto option;
                 break;
             }
@@ -654,7 +654,7 @@ int main()
 
             case 4:
             program.delivery_time = 3;
-            printf("Enter 1 to buy Sneakers\n");
+            printf("\nEnter 1 to buy Sneakers\n");
             printf("Enter 2 to buy Sport Shoes\n");
             printf("Enter 3 to buy Sandals\n");
             fflush(stdin);
@@ -665,7 +665,7 @@ int main()
             switch(choice)
             {
                 case 1:
-                printf("Enter 1 to buy Red Tape: 1769rs\n");
+                printf("\nEnter 1 to buy Red Tape: 1769rs\n");
                 printf("Enter 2 to buy Adidas: 2647rs\n");
                 printf("Enter 3 to buy Reebok: 1973rs\n");
                 fflush(stdin);
@@ -673,7 +673,7 @@ int main()
                 fflush(stdin);
                 scanf("%d", &sub_choice);
                 fflush(stdin);
-                printf("Enter the color you want: ");
+                printf("\nEnter the color you want: ");
                 fflush(stdin);
                 scanf("%[^\n]s", program.products.shoe.feet.sneaker.color);
                 fflush(stdin);
@@ -696,7 +696,7 @@ int main()
                 break;
 
                 case 2:
-                printf("Enter 1 to buy Red Tape: 2009rs\n");
+                printf("\nEnter 1 to buy Red Tape: 2009rs\n");
                 printf("Enter 2 to buy Campus: 1449rs\n");
                 printf("Enter 3 to buy Adidas: 1649rs\n");
                 fflush(stdin);
@@ -704,7 +704,7 @@ int main()
                 fflush(stdin);
                 scanf("%d", &sub_choice);
                 fflush(stdin);
-                printf("Enter the color you want: ");
+                printf("\nEnter the color you want: ");
                 fflush(stdin);
                 scanf("%[^\n]s", program.products.shoe.feet.sport.color);
                 fflush(stdin);
@@ -727,7 +727,7 @@ int main()
                 break;
 
                 case 3:
-                printf("Enter 1 to buy Red Tape: 799rs\n");
+                printf("\nEnter 1 to buy Red Tape: 799rs\n");
                 printf("Enter 2 to buy Bata: 837rs\n");
                 printf("Enter 3 to buy Red Chief: 1637rs\n");
                 fflush(stdin);
@@ -735,7 +735,7 @@ int main()
                 fflush(stdin);
                 scanf("%d", &sub_choice);
                 fflush(stdin);
-                printf("Enter the color you want: ");
+                printf("\nEnter the color you want: ");
                 fflush(stdin);
                 scanf("%[^\n]s", program.products.shoe.feet.sandal.color);
                 fflush(stdin);
@@ -758,7 +758,7 @@ int main()
                 break;
 
                 default:
-                printf("Wrong Input\n");
+                printf("\nWrong Input\n");
                 goto option;
                 break;
             }
@@ -766,7 +766,7 @@ int main()
 
             case 5:
             program.delivery_time = 5;
-            printf("Enter 1 to buy Mattress\n");
+            printf("\nEnter 1 to buy Mattress\n");
             printf("Enter 2 to buy Pillow\n");
             printf("Enter 3 to buy Bedsheet\n");
             printf("Enter: ");
@@ -776,14 +776,14 @@ int main()
             switch(choice)
             {
                 case 1:
-                printf("Enter 1 to buy Wakefit: 15520rs\n");
+                printf("\nEnter 1 to buy Wakefit: 15520rs\n");
                 printf("Enter 2 to buy Centuary: 22403rs\n");
                 printf("Enter 3 to buy Sleepyhead: 14000rs\n");
                 printf("Enter: ");
                 fflush(stdin);
                 scanf("%d", &sub_choice);
                 fflush(stdin);
-                printf("Enter the size (Queen size or Single bed or King size): ");
+                printf("\nEnter the size (Queen size or Single bed or King size): ");
                 fflush(stdin);
                 fgets(program.products.handloom.bedroom.mattress.size, sizeof(program.products.handloom.bedroom.mattress.size), stdin);
                 fflush(stdin);
@@ -806,7 +806,7 @@ int main()
                 break;
 
                 case 2:
-                printf("Enter 1 to buy Beckham: 3200rs\n");
+                printf("\nEnter 1 to buy Beckham: 3200rs\n");
                 printf("Enter 2 to buy SleepyCat: 1989rs\n");
                 printf("Enter 3 to buy Wakefit: 1141rs\n");
                 fflush(stdin);
@@ -814,7 +814,7 @@ int main()
                 fflush(stdin);
                 scanf("%d", &sub_choice);
                 fflush(stdin);
-                printf("Enter the size (Large or Medium or Small): ");
+                printf("\nEnter the size (Large or Medium or Small): ");
                 fflush(stdin);
                 scanf("%s", program.products.handloom.bedroom.pillow.size);
                 fflush(stdin);
@@ -841,7 +841,7 @@ int main()
                 break;
 
                 case 3:
-                printf("Enter 1 to buy Homefab: 1200rs\n");
+                printf("\nEnter 1 to buy Homefab: 1200rs\n");
                 printf("Enter 2 to buy BSB Home: 1300rs\n");
                 printf("Enter 3 to buy Huesland: 1295rs\n");
                 fflush(stdin);
@@ -849,7 +849,7 @@ int main()
                 fflush(stdin);
                 scanf("%d", &sub_choice);
                 fflush(stdin);
-                printf("Enter the size (Large or Medium or Small): ");
+                printf("\nEnter the size (Large or Medium or Small): ");
                 fflush(stdin);
                 scanf("%s", program.products.handloom.bedroom.bedsheet.size);
                 fflush(stdin);
@@ -876,7 +876,7 @@ int main()
                 break;
 
                 default:
-                printf("Wrong Input\n");
+                printf("\nWrong Input\n");
                 goto option;
                 break;
             }
@@ -884,7 +884,7 @@ int main()
 
             case 6:
             program.delivery_time = 3;
-            printf("Enter 1 to buy Soaps\n");
+            printf("\nEnter 1 to buy Soaps\n");
             printf("Enter 2 to buy Toothpaste\n");
             printf("Enter 3 to buy Face Wash\n");
             fflush(stdin);
@@ -895,7 +895,7 @@ int main()
             switch(choice)
             {
                 case 1:
-                printf("Enter 1 to buy Park Avenue: 53rs\n");
+                printf("\nEnter 1 to buy Park Avenue: 53rs\n");
                 printf("Enter 2 to buy Dettol: 35rs\n");
                 printf("Enter 3 to buy Godrej: 33rs\n");
                 fflush(stdin);
@@ -903,7 +903,7 @@ int main()
                 fflush(stdin);
                 scanf("%d", &sub_choice);
                 fflush(stdin);
-                printf("Enter the number of soaps you want: ");
+                printf("\nEnter the number of soaps you want: ");
                 fflush(stdin);
                 scanf("%d", &program.products.toilet.clean.soaps.quantity);
                 fflush(stdin);
@@ -930,7 +930,7 @@ int main()
                 break;
 
                 case 2:
-                printf("Enter 1 to buy Colgate: 92rs\n");
+                printf("\nEnter 1 to buy Colgate: 92rs\n");
                 printf("Enter 2 to buy Pepsodent: 103rs\n");
                 printf("Enter 3 to buy Sensodyne: 140rs\n");
                 fflush(stdin);
@@ -938,7 +938,7 @@ int main()
                 fflush(stdin);
                 scanf("%d", &sub_choice);
                 fflush(stdin);
-                printf("Enter the number of toothpastes you want: ");
+                printf("\nEnter the number of toothpastes you want: ");
                 fflush(stdin);
                 scanf("%d", &program.products.toilet.clean.toothpaste.quantity);
                 fflush(stdin);
@@ -965,7 +965,7 @@ int main()
                 break;
 
                 case 3:
-                printf("Enter 1 to buy Nivea: 249rs\n");
+                printf("\nEnter 1 to buy Nivea: 249rs\n");
                 printf("Enter 2 to buy Wow: 399rs\n");
                 printf("Enter 3 to buy Biotique: 205rs\n");
                 fflush(stdin);
@@ -973,7 +973,7 @@ int main()
                 fflush(stdin);
                 scanf("%d", &sub_choice);
                 fflush(stdin);
-                printf("Enter the number of face wash you want: ");
+                printf("\nEnter the number of face wash you want: ");
                 fflush(stdin);
                 scanf("%d", &program.products.toilet.clean.face_wash.quantity);
                 fflush(stdin);
@@ -1000,47 +1000,48 @@ int main()
                 break;
 
                 default:
-                printf("Wrong Input\n");
+                printf("\nWrong Input\n");
                 goto option;
                 break;
             }
             break;
         }
 
-        printf("Item successfully added to cart!\n");
-        
+        printf("\nItem successfully added to cart!\n");
+
         //Storing the price and delivery time of each item
         total[index] = program.total;
         time[index] = program.delivery_time;
-        
-        //Initializing -1 add the end of the array to use it as a terminating condition
+
+        //Initializing -1 at the end of the array to use it as a terminating condition
         time[++index] = -1;
         cart += program.total;
-        printf("Enter 1 to view your cart\n");
+        printf("\nEnter 1 to view your cart\n");
         printf("Enter 2 to continue shopping\n");
         printf("Enter: ");
         scanf("%d", &shop);
-        
+
         if(shop == 1)
         {
+            printf("\n");
             //Prints the items in the cart
             for(int i = 0; i < index; i++)
                 printf("%s: %d\n", brand[i], total[i]);
-            
-            printf("Total value of cart: %d\n", cart);
-            printf("Enter 1 to checkout\n");
+
+            printf("\nTotal value of cart: %d\n", cart);
+            printf("\nEnter 1 to checkout\n");
             printf("Enter 2 to continue shopping\n");
             fflush(stdin);
             printf("Enter: ");
             fflush(stdin);
             scanf("%d", &shop);
             fflush(stdin);
-            
+
             if(shop == 1)
             {
                 checkout:
                 fflush(stdin);
-                printf("Please enter additional details:\nAddress: ");
+                printf("\nPlease enter additional details:\nAddress: ");
                 fflush(stdin);
                 fgets(address, sizeof(address), stdin);
                 fflush(stdin);
@@ -1048,22 +1049,22 @@ int main()
                 fflush(stdin);
                 fgets(mobile, sizeof(mobile), stdin);
                 fflush(stdin);
-                printf("Items will be delivered within %d days\n", delivery(time));
+                printf("\nItems will be delivered within %d days\n\n", delivery(time));
             }
         }
     } while(shop == 2);
-    printf("Thank You %s\n", program.username);
+    printf("\t\t\t\t\t\t\tThank You %s\n\n", program.username);
 }
 
 void warehouse()
 {
-    printf("Hello Sir/Madam\n");
+    printf("\nHello Sir/Madam\n");
     display();
     char data[50], item[25], quantity[5], new_entry[50];
     FILE *file = fopen("C:\\Users\\karti\\OneDrive\\Documents\\GitHub\\Projects\\warehouse.txt", "r");
     FILE *temp = fopen("C:\\Users\\karti\\OneDrive\\Documents\\GitHub\\Projects\\temp.txt", "w");
     fflush(stdin);
-    printf("\nPlease enter the name of the item bought: ");
+    printf("\n\nPlease enter the name of the item bought: ");
     fflush(stdin);
     scanf("%s", item);
     fflush(stdin);
@@ -1093,13 +1094,14 @@ void warehouse()
     remove("C:\\Users\\karti\\OneDrive\\Documents\\GitHub\\Projects\\warehouse.txt");
     rename("C:\\Users\\karti\\OneDrive\\Documents\\GitHub\\Projects\\temp.txt", "C:\\Users\\karti\\OneDrive\\Documents\\GitHub\\Projects\\warehouse.txt");
     display();
+    printf("\n");
 }
 
 void display()
 {
     char data[50];
     FILE *file = fopen("C:\\Users\\karti\\OneDrive\\Documents\\GitHub\\Projects\\warehouse.txt", "r");
-    printf("The quantity of each item in warehouse is:\n");
+    printf("\nThe quantity of each item in warehouse is:\n\n");
     if(file == NULL)
         printf("File not found");
     else
