@@ -8,7 +8,7 @@ Chocolate: 50
 Chips: 100
 Biscuits: 50
 Flour: 50
-Milk: 50
+Milk: 100
 Fruits: 50
 Soaps: 50
 Toothpaste: 50

@@ -66,7 +66,7 @@ struct program
                 {
                     float price;
                     int power;
-                    char cable_type;
+                    char cable_type[10];
                 } charger;
 
                 struct power_bank
@@ -84,21 +84,21 @@ struct program
                 struct chocolate
                 {
                     float price;
-                    char type;
+                    char type[10];
                     int quantity;
                 } chocolate;
 
                 struct chips
                 {
                     float price;
-                    char flavour;
+                    char flavour[10];
                     int quantity;
                 } chips;
 
                 struct biscuits
                 {
                     float price;
-                    char flavour;
+                    char flavour[10];
                     int quantity;
                 } biscuits;
             } consumables;
@@ -192,6 +192,7 @@ int main()
     char brand[50][25], address[100], mobile[15];
     time[0] = -1;
 
+    printf("\t\t\t\t\t\tWelcome to Cyber Mall\n\n");
     printf("Enter 1 for Login\n");
     printf("Enter 2 for New User\n");
     fflush(stdin);
@@ -204,25 +205,28 @@ int main()
     user:
     printf("Please enter your details\nUsername: ");
     fflush(stdin);
-    gets(program.username);
+    scanf("%s", program.username);
     fflush(stdin);
     printf("Password: ");
     fflush(stdin);
-    gets(program.password);
+    scanf("%s", program.password);
     fflush(stdin);
 
+    //User is trying to login but username or password was wrong
     if(user == 1 && signin() == 0)
     {
         printf("Wrong login credantials\n");
         goto user;
     }
 
+    //User is trying to create an account but username already exists
     else if(user == 2 && signin() == 1)
     {
         printf("Username already exists\n");
         goto user;
     }
 
+    //User is trying to create an account and he is successfull
     else if(user == 2 && signin() == 0)
     {
         signup();
@@ -248,7 +252,7 @@ int main()
     printf("Electronics: Headphones, Chargers and Power Banks\n");
     printf("Footwear: Sport shoes, Sneakers and Sandals\n");
     printf("Handloom: Bedsheets, Pillows and Matteresses\n");
-    printf("Toiletries: Soaps, Face wash and Tooth Paste\n");
+    printf("Toiletries: Soaps, Face wash and Tooth Paste\n\n");
 
     do
     {
@@ -258,9 +262,10 @@ int main()
             printf("Cart limit reached!\n");
             for(int i = 0; i < index; i++)
                 printf("%s: %d\n", brand[i], total[i]);
+
             printf("Total value of cart: %d\n", cart);
             printf("Enter 1 to checkout\n");
-            printf("Enter 2 to save the cart for later\n");
+            printf("Enter 2 to exit\n");
             fflush(stdin);
             printf("Enter: ");
             fflush(stdin);
@@ -269,7 +274,7 @@ int main()
             if(main_choice == 1)
                 goto checkout;
             else
-                exit(0);
+                break;
         }
 
         option:
@@ -438,7 +443,7 @@ int main()
                 fflush(stdin);
                 printf("Enter the type of milk (Toned or Skimmed): ");
                 fflush(stdin);
-                gets(program.products.groceries.eatery.milk.type_milk);
+                scanf("%s", program.products.groceries.eatery.milk.type_milk);
                 fflush(stdin);
                 if(sub_choice == 1)
                 {
@@ -473,7 +478,7 @@ int main()
                 fflush(stdin);
                 printf("Enter the type of flour (Whole wheat or Multigrain or Both): ");
                 fflush(stdin);
-                gets(program.products.groceries.eatery.flour.type_flour);
+                scanf("%[^\n]s", program.products.groceries.eatery.flour.type_flour);
                 fflush(stdin);
                 if(sub_choice == 1)
                 {
@@ -553,8 +558,8 @@ int main()
                 scanf("%d", &sub_choice);
                 fflush(stdin);
                 printf("Enter the color you want: ");
-                while((var = getchar()) != '\n' && var != EOF);
-                gets(program.products.electric.appliance.headphones.color);
+                fflush(stdin);
+                scanf("%[^\n]s", program.products.electric.appliance.headphones.color);
                 fflush(stdin);
                 if(sub_choice == 1)
                 {
@@ -670,7 +675,7 @@ int main()
                 fflush(stdin);
                 printf("Enter the color you want: ");
                 fflush(stdin);
-                gets(program.products.shoe.feet.sneaker.color);
+                scanf("%[^\n]s", program.products.shoe.feet.sneaker.color);
                 fflush(stdin);
                 if(sub_choice == 1)
                 {
@@ -701,7 +706,7 @@ int main()
                 fflush(stdin);
                 printf("Enter the color you want: ");
                 fflush(stdin);
-                gets(program.products.shoe.feet.sport.color);
+                scanf("%[^\n]s", program.products.shoe.feet.sport.color);
                 fflush(stdin);
                 if(sub_choice == 1)
                 {
@@ -732,7 +737,7 @@ int main()
                 fflush(stdin);
                 printf("Enter the color you want: ");
                 fflush(stdin);
-                gets(program.products.shoe.feet.sandal.color);
+                scanf("%[^\n]s", program.products.shoe.feet.sandal.color);
                 fflush(stdin);
                 if(sub_choice == 1)
                 {
@@ -780,7 +785,7 @@ int main()
                 fflush(stdin);
                 printf("Enter the size (Queen size or Single bed or King size): ");
                 fflush(stdin);
-                gets(program.products.handloom.bedroom.mattress.size);
+                fgets(program.products.handloom.bedroom.mattress.size, sizeof(program.products.handloom.bedroom.mattress.size), stdin);
                 fflush(stdin);
                 if(sub_choice == 1)
                 {
@@ -811,11 +816,11 @@ int main()
                 fflush(stdin);
                 printf("Enter the size (Large or Medium or Small): ");
                 fflush(stdin);
-                gets(program.products.handloom.bedroom.pillow.size);
+                scanf("%s", program.products.handloom.bedroom.pillow.size);
                 fflush(stdin);
                 printf("Enter the material (Cotton or Feather or Synthetic): ");
                 fflush(stdin);
-                gets(program.products.handloom.bedroom.pillow.material);
+                scanf("%s", program.products.handloom.bedroom.pillow.material);
                 fflush(stdin);
                 if(sub_choice == 1)
                 {
@@ -846,11 +851,11 @@ int main()
                 fflush(stdin);
                 printf("Enter the size (Large or Medium or Small): ");
                 fflush(stdin);
-                gets(program.products.handloom.bedroom.bedsheet.size);
+                scanf("%s", program.products.handloom.bedroom.bedsheet.size);
                 fflush(stdin);
                 printf("Enter the color you want: ");
                 fflush(stdin);
-                gets(program.products.handloom.bedroom.bedsheet.color);
+                scanf("%s", program.products.handloom.bedroom.bedsheet.color);
                 fflush(stdin);
                 if(sub_choice == 1)
                 {
@@ -904,7 +909,7 @@ int main()
                 fflush(stdin);
                 printf("Enter the fragrance (Lavender or Sandalwood or Fresh lime or Sea breeze): ");
                 fflush(stdin);
-                gets(program.products.toilet.clean.soaps.fragrance);
+                scanf("%[^\n]s", program.products.toilet.clean.soaps.fragrance);
                 fflush(stdin);
                 if(sub_choice == 1)
                 {
@@ -939,7 +944,7 @@ int main()
                 fflush(stdin);
                 printf("Enter the properties (Sensitivity removal or Added salts or Fluoride free): ");
                 fflush(stdin);
-                gets(program.products.toilet.clean.toothpaste.type);
+                scanf("%[^\n]s", program.products.toilet.clean.toothpaste.type);
                 fflush(stdin);
                 if(sub_choice == 1)
                 {
@@ -974,7 +979,7 @@ int main()
                 fflush(stdin);
                 printf("Enter the properties (Oil control or Dry skin or Acne removal): ");
                 fflush(stdin);
-                gets(program.products.toilet.clean.face_wash.properties);
+                scanf("%[^\n]s", program.products.toilet.clean.face_wash.properties);
                 fflush(stdin);
                 if(sub_choice == 1)
                 {
@@ -1003,18 +1008,25 @@ int main()
         }
 
         printf("Item successfully added to cart!\n");
+        
+        //Storing the price and delivery time of each item
         total[index] = program.total;
         time[index] = program.delivery_time;
+        
+        //Initializing -1 add the end of the array to use it as a terminating condition
         time[++index] = -1;
         cart += program.total;
         printf("Enter 1 to view your cart\n");
         printf("Enter 2 to continue shopping\n");
         printf("Enter: ");
         scanf("%d", &shop);
+        
         if(shop == 1)
         {
+            //Prints the items in the cart
             for(int i = 0; i < index; i++)
                 printf("%s: %d\n", brand[i], total[i]);
+            
             printf("Total value of cart: %d\n", cart);
             printf("Enter 1 to checkout\n");
             printf("Enter 2 to continue shopping\n");
@@ -1023,17 +1035,18 @@ int main()
             fflush(stdin);
             scanf("%d", &shop);
             fflush(stdin);
+            
             if(shop == 1)
             {
                 checkout:
                 fflush(stdin);
                 printf("Please enter additional details:\nAddress: ");
                 fflush(stdin);
-                gets(address);
+                fgets(address, sizeof(address), stdin);
                 fflush(stdin);
                 printf("Mobile Number: ");
                 fflush(stdin);
-                gets(mobile);
+                fgets(mobile, sizeof(mobile), stdin);
                 fflush(stdin);
                 printf("Items will be delivered within %d days\n", delivery(time));
             }
@@ -1046,31 +1059,37 @@ void warehouse()
 {
     printf("Hello Sir/Madam\n");
     display();
-    char data[50];
+    char data[50], item[25], quantity[5], new_entry[50];
     FILE *file = fopen("C:\\Users\\karti\\OneDrive\\Documents\\GitHub\\Projects\\warehouse.txt", "r");
     FILE *temp = fopen("C:\\Users\\karti\\OneDrive\\Documents\\GitHub\\Projects\\temp.txt", "w");
-    char item[25], quantity[5], new_entry[50];
     fflush(stdin);
     printf("\nPlease enter the name of the item bought: ");
     fflush(stdin);
-    gets(item);
+    scanf("%s", item);
     fflush(stdin);
     printf("Please enter the total new quantity: ");
     fflush(stdin);
-    gets(quantity);
+    scanf("%s", quantity);
     fflush(stdin);
-    strcat(new_entry, item);
+    strcpy(new_entry, item);
     strcat(new_entry, ": ");
     strcat(new_entry, quantity);
+
+    //Reads warehouse.txt line by line
     while(fgets(data, sizeof(data), file))
     {
+        //Checks if the line read has the item entered by the user
         if(strstr(data, item))
             fprintf(temp, "%s\n", new_entry);
+        //If not found then, copy the line from the warehouse.txt to temp.txt
         else
             fprintf(temp, "%s", data);
     }
+
     fclose(file);
     fclose(temp);
+
+    //Delete the old warehouse.txt and then rename temp.txt to warehouse.txt
     remove("C:\\Users\\karti\\OneDrive\\Documents\\GitHub\\Projects\\warehouse.txt");
     rename("C:\\Users\\karti\\OneDrive\\Documents\\GitHub\\Projects\\temp.txt", "C:\\Users\\karti\\OneDrive\\Documents\\GitHub\\Projects\\warehouse.txt");
     display();
@@ -1085,6 +1104,7 @@ void display()
         printf("File not found");
     else
     {
+        //Reads warehouse.txt file line by line
         while(fgets(data, sizeof(data), file))
             printf("%s", data);
     }
@@ -1104,14 +1124,11 @@ int delivery(int *array)
 
 void signup()
 {
-    char entry[50];
-    strcpy(entry, program.username);
-    strcat(entry, ": ");
-    strcat(entry, program.password);
     FILE *file = fopen("C:\\Users\\karti\\OneDrive\\Documents\\GitHub\\Projects\\user.txt", "a");
     if(file == NULL)
         printf("File Not Found\n");
-    fprintf(file, "%s\n", entry);
+    //Username: Password format to store the data
+    fprintf(file, "%s: %s\n", program.username, program.password);
     fclose(file);
 }
 
@@ -1124,8 +1141,10 @@ int signin()
         printf("File Not Found");
     else
     {
+        //Reads user.txt file line by line
         while(fgets(entry, sizeof(entry), file))
         {
+            //Checks if the line read contains the username and password as entered by the user
             if(strstr(entry, program.username) && strstr(entry, program.password))
             {
                 r = 1;
