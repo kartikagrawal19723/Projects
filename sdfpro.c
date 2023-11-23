@@ -59,7 +59,7 @@ struct program
                 struct headphones
                 {
                     float price;
-                    char color;
+                    char color[10];
                 } headphones;
 
                 struct charger
@@ -559,7 +559,7 @@ int main()
                 fflush(stdin);
                 printf("\nEnter the color you want: ");
                 fflush(stdin);
-                scanf("%[^\n]s", program.products.electric.appliance.headphones.color);
+                scanf("%s", program.products.electric.appliance.headphones.color);
                 fflush(stdin);
                 if(sub_choice == 1)
                 {
@@ -593,7 +593,7 @@ int main()
                 scanf("%d", &program.products.electric.appliance.charger.power);
                 fflush(stdin);
                 printf("Enter the type of cable you want: ");
-                while((var = getchar()) != '\n' && var != EOF);
+                fflush(stdin);
                 fgets(program.products.electric.appliance.charger.cable_type, sizeof(program.products.electric.appliance.charger.cable_type), stdin);
                 fflush(stdin);
                 if(sub_choice == 1)
